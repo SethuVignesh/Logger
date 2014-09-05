@@ -20,15 +20,20 @@ public class MainActivity extends Activity {
 		try {
 			int a = 0 / 0;
 		} catch (Exception e) {
+			logRemote(e.toString());
+		}
+	}
 
+	public void logRemote(String exception) {
+		try {
 			Intent intent = new Intent(MainActivity.this, RemoteLogger.class);
 			intent.putExtra("className", this.getClass().toString());
 			Toast.makeText(getApplicationContext(), this.getClass().toString(),
 					0).show();
-			intent.putExtra("error", e.toString());
+			intent.putExtra("error", exception);
 			startService(intent);
-			
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
-
 }
